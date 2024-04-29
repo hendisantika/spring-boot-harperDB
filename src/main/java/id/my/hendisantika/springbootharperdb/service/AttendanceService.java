@@ -1,5 +1,6 @@
 package id.my.hendisantika.springbootharperdb.service;
 
+import id.my.hendisantika.springbootharperdb.dto.EmployeeDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,26 @@ public class AttendanceService {
             resultList.add(result);
         }
         return resultList;
+    }
+
+    public HashMap<String, String> addNewLeaveForEmployee(EmployeeDTO employeeData) {
+        log.info("Inserting new leave for employee - {}", employeeData.getEmployeeId());
+        HashMap<String, String> result = new HashMap<>();
+        try {
+            Connection conn = connectionService.createConnection();
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO employee_leaves.leaves (date, empid) VALUES (?,?)");
+            statement.setString(1, employeeData.getDate());
+            statement.setString(2, employeeData.getEmployeeId());
+            int count = statement.executeUpdate();
+            if (count > 0) {
+                result.put("Message", "Success");
+                result.put("Affected rows", String.valueOf(count));
+            }
+            conn.close();
+        } catch (Exception e) {
+            log.error("Error occurred", e);
+            result.put("Error", e.getMessage());
+        }
+        return result;
     }
 }
