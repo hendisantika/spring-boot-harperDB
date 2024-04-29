@@ -26,7 +26,7 @@
             <artifactId>cdata.jdbc.harperdb</artifactId>
             <scope>system</scope>
             <version>1.0</version>
-            <systemPath>${project.basedir}/lib/cdata.jdbc.harperdb.jar</systemPath>
+            <systemPath>${project.basedir}/libs/cdata.jdbc.harperdb.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
