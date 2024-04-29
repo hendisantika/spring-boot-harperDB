@@ -4,7 +4,11 @@ import id.my.hendisantika.springbootharperdb.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,5 +30,10 @@ public class AttendanceController {
     @GetMapping("/")
     public String healthCheck() {
         return "OK";
+    }
+
+    @GetMapping(value = "/api/get/all/leaves/{employeeId}")
+    public List<HashMap<String, String>> getAllLeavesForEmployee(@PathVariable String employeeId) {
+        return attendanceService.getAllLeavesForEmployee(employeeId);
     }
 }
