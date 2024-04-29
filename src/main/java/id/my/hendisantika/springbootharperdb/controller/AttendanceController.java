@@ -3,6 +3,7 @@ package id.my.hendisantika.springbootharperdb.controller;
 import id.my.hendisantika.springbootharperdb.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,4 +23,8 @@ public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
+    @GetMapping("/")
+    public String healthCheck() {
+        return "OK";
+    }
 }
