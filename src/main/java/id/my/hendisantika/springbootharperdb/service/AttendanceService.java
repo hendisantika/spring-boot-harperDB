@@ -99,4 +99,25 @@ public class AttendanceService {
         }
         return result;
     }
+
+    public HashMap<String, String> cancelLeaveForEmployee(EmployeeDTO employeeData) {
+        log.info("Cancelling leave for employee - {}", employeeData.getEmployeeId());
+        HashMap<String, String> result = new HashMap<>();
+        try {
+            Connection conn = connectionService.createConnection();
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM employee_leaves.leaves WHERE empid = ? AND DATE = ?");
+            statement.setString(1, employeeData.getEmployeeId());
+            statement.setString(2, employeeData.getDate());
+            int count = statement.executeUpdate();
+            if (count > 0) {
+                result.put("Message", "Success");
+                result.put("Affected rows", String.valueOf(count));
+            }
+            conn.close();
+        } catch (Exception e) {
+            log.error("Error occurred", e);
+            result.put("Error", e.getMessage());
+        }
+        return result;
+    }
 }
